@@ -1,0 +1,101 @@
+<% layout("layout/boilerplate") -%>
+<div class="row">
+    <div class="col-8 offset-2">
+        <h3>Create a New Listing</h3>
+        <form method="POST" 
+        action="/listings" 
+        class="needs-validation" 
+        novalidate 
+        enctype = "multipart/form-data"
+        >
+            <div class="mb-3">
+                <label for="title" class="form-label">Title</label>
+                <input name="listing[title]" placeholder="enter title" type="text" class="form-control" required>
+                <div class="valid-feedback">
+                    Title is valid.
+                </div>
+                <div class="invalid-feedback">
+                    Please enter a title.
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="description" class="form-label">Description</label>
+                <textarea name="listing[description]" placeholder="enter description" class="form-control" required></textarea>
+                <div class="valid-feedback">
+                    Description is valid.
+                </div>
+                <div class="invalid-feedback">
+                    Please enter a description.
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="image" class="form-label">Upload Listing Image</label>
+                <input name="listing[image]" 
+                type="file" 
+                class="form-control" 
+                accept="image/*">
+                <div class="valid-feedback">
+                    Image is valid.
+                </div>
+                <div class="invalid-feedback">
+                    Please upload an image.
+                </div>
+            </div>
+            
+            <div class="mb-3">
+                <label for="imageUrl" class="form-label">Or Enter Image URL (Optional)</label>
+                <input name="listing[image][url]" 
+                placeholder="enter image URL/Link" 
+                type="url" 
+                class="form-control">
+                <div class="valid-feedback">
+                    Image URL is valid.
+                </div>
+                <div class="invalid-feedback">
+                    Please provide a valid image URL.
+                </div>
+            </div>
+            <div class="row">
+                <div class="mb-3 col-md-4">
+                    <label for="price" class="form-label">Price</label>
+                    <input name="listing[price]" placeholder="enter price" type="number" class="form-control" min="1" required>
+                    <div class="valid-feedback">
+                        Price is valid.
+                    </div>
+
+                    <div class="invalid-feedback">
+                        Please enter a valid price.
+                    </div>
+                </div>
+                <div class="mb-3 col-md-8">
+                    <label for="country" class="form-label">Country</label>
+                    <input name="listing[country]" placeholder="enter country" type="text" class="form-control" required>
+                    <div class="valid-feedback">
+                        Country is valid.
+                    </div>
+
+                    <div class="invalid-feedback">
+                        Please enter a country.
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="location" class="form-label">Location</label>
+                <input name="listing[location]" placeholder="enter location" type="text" class="form-control" required>
+                <div class="valid-feedback">
+                    Location is valid.
+                </div>
+                <div class="invalid-feedback">
+                    Please enter a location.
+                </div>
+            </div>
+
+            <button class="btn btn-danger add-btn" type="submit">Add</button>
+        </form>
+    </div>
+</div>
+
+<script>

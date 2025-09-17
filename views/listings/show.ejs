@@ -1,0 +1,98 @@
+<% layout("/layout/boilerplate") -%>
+<div class="row mt-3">
+  <div class="col-8 offset-3">
+    <h3><%= listing.title %></h3>
+  </div>
+  <div class="card col-6 offset-3 show-card">
+    <img src="<%= listing.image.url %>" class="show-img" alt="listing_image" />
+    <div class="card-body">
+        <p class="card-text"><%= listing.description %></p>
+        <p class="card-text">
+            <% if (typeof listing.price === 'number') { %>
+                &#8377; <%= listing.price.toLocaleString("en-IN") %> /night
+            <% } else { %>
+                Price not available
+            <% } %>
+        </p>
+        <p class="card-text"><%= listing.location %></p>
+        <p class="card-text"><%= listing.country %></p>
+    </div>
+  </div>
+  <br>
+  <% if(user && listing.owner && user._id.equals(listing.owner._id)) { %>
+    <div class="btns col-6 offset-3 mt-3">
+      <a href="/listings/<%= listing._id %>/edit" class="btn btn-danger add-btn">Edit</a>
+      <form method="POST" action="/listings/<%= listing._id %>?_method=DELETE">
+          <button class="btn btn-dark del-btn">Delete</button>
+      </form>
+    </div>
+  <% } %>
+  <div class="col-8 offset-3">
+    <a href="/listings" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to all listings</a>
+  </div>
+  <!-- Display Existing Reviews -->
+  <% if (listing.reviews && listing.reviews.length > 0) { %>
+    <div class="col-8 offset-3 mt-4">
+      <h4 class="mb-3">All Reviews</h4>
+      <div class="row">
+        <% listing.reviews.forEach((review, index) => { %>
+          <div class="col-md-6 mb-3">
+            <div class="card review-card">
+              <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                  <h6 class="card-title mb-0">@<%= review.author ? review.author.username : 'Anonymous User' %></h6>                  <div class="rating-display">
+                    <% for (let i = 1; i <= 5; i++) { %>
+                      <span class="star-display <%= i <= review.rating ? 'filled' : '' %>">★</span>
+                    <% } %>
+                  </div>
+                </div>
+                <p class="card-text review-comment"><%= review.comment %></p>
+                <div class="d-flex justify-content-between align-items-center">
+                  <small class="text-muted">
+                    <i class="fa-regular fa-calendar"></i>
+                    <%= review.createdAt.toLocaleDateString('en-US', { 
+                      year: 'numeric', 
+                      month: 'short', 
+                      day: 'numeric' 
+                    }) %>
+                  </small>
+                  <form method="POST" action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE" class="delete-review-form">
+                    <button type="submit" class="btn btn-sm btn-outline-danger delete-review-btn">
+                      <i class="fa-solid fa-trash"></i>
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% }); %>
+      </div>
+    </div>
+  <% } %>
+<!-- Creating Reviews -->
+ <% if(user){ %>
+  <div class="col-8 offset-3 mt-4 reviews-section">
+    <h4 class="mb-3">Leave a Review</h4>
+    <form action="/listings/<%= listing._id %>/reviews" method="POST" class="needs-validation" novalidate>
+      <div class="mb-3">
+        <label for="rating" class="form-label">Rating</label>
+        <div class="star-rating" id="starRating">
+          <span class="star" data-rating="1">★</span>
+          <span class="star" data-rating="2">★</span>
+          <span class="star" data-rating="3">★</span>
+          <span class="star" data-rating="4">★</span>
+          <span class="star" data-rating="5">★</span>
+        </div>
+        <input type="hidden" name="review[rating]" id="ratingInput" value="0" required />
+      </div>
+      <div class="mb-3">
+        <label for="comment" class="form-label">Comments</label>
+        <textarea name="review[comment]" id="comment" rows="5" class="form-control" required></textarea>
+        <div class="invalid-feedback">
+          Please add some comments for review.
+        </div>
+      </div>
+      <button type="submit" class="btn btn-danger add-btn">Submit Review</button>
+    </form>
+  </div>
+<% } %>

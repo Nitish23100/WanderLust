@@ -1,0 +1,369 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.container {
+    flex: 1;
+}
+
+.listing-card {
+    border: none !important;
+    margin-bottom: 2rem;
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.listing-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.card-img-top {
+    width: 100% !important;
+    object-fit: cover !important;
+}
+
+.card-body {
+    padding: 1rem !important;
+}
+
+.listing-link {
+    text-decoration: none;
+}
+
+/* Card Overlay */
+.card-img-overlay {
+    opacity: 0;
+}
+
+.card-img-overlay:hover {
+    opacity: 0.2;
+    background-color: white;
+}
+.navbar{
+    height: 5rem;
+}
+.fa-compass{
+    color: #fe424d;
+    font-size: 2 rem;
+}
+.nav-link{
+    color: #222222 !important ;
+}
+/* Footer */
+.f-info{
+    text-decoration: none;
+    color: black;
+}
+.f-info-links a:hover{
+    text-decoration: underline;
+}
+.f-info-links{
+    width: 100%;
+}
+.f-info-social{
+    width: 100%;
+    font-size: 1.2rem;
+    vertical-align: middle;
+}
+.f-info-social i{
+    margin-right: 1rem; /* Adjusted margin for closer icons */
+}
+.f-info{
+    text-align: center;
+    display: flex;
+    height: 8rem;
+    background-color: #ebebeb;
+    flex-wrap: wrap;
+    justify-content: space-around; /* Changed to space-around for better distribution */
+    align-items: center; /* Changed to center for vertical alignment */
+}
+
+.f-info-links a {
+    color: #222222;
+    margin: 0 1rem;
+}
+
+.add-btn {
+    background-color: #fe424d !important;
+    border: none !important;
+}
+
+/* Show Page */
+.show-img{
+    height: 30vh;
+}
+
+.btns{
+    display: flex;
+    margin-top: 1rem;
+}
+
+.del-btn {
+    margin-left: 1rem;
+}
+
+.show-card{
+    padding: 0 !important;
+    border-radius: 1rem !important;
+    overflow: hidden !important;
+    border: none !important;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1) !important;
+    background-color: white;
+    margin-bottom: 2rem;
+}
+
+.show-img {
+    height: 30vh;
+    object-fit: cover;
+    width: 100%;
+    display: block;
+    margin: 0;
+    padding: 0;
+}
+
+.back-link {
+    text-decoration: none;
+    color: #222222;
+    margin-top: 1rem;
+    display: inline-block;
+}
+
+/* Reviews Form Styling */
+.reviews-section {
+    background-color: #f8f9fa;
+    padding: 2rem;
+    border-radius: 1rem;
+    margin-top: 2rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.reviews-section h4 {
+    color: #222222;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+}
+
+.reviews-section hr {
+    border-color: #e0e0e0;
+    margin-bottom: 1.5rem;
+}
+
+.reviews-section .form-label {
+    font-weight: 600;
+    color: #484848;
+    margin-bottom: 0.5rem;
+}
+
+.reviews-section .form-control {
+    border: 1px solid #dddddd;
+    border-radius: 0.5rem;
+    padding: 0.75rem;
+    font-size: 0.95rem;
+    transition: border-color 0.2s ease;
+}
+
+.reviews-section .form-control:focus {
+    border-color: #fe424d;
+    box-shadow: 0 0 0 0.2rem rgba(254, 66, 77, 0.1);
+}
+
+.reviews-section textarea.form-control {
+    resize: vertical;
+    min-height: 100px;
+}
+
+/* Star Rating Custom Styling */
+.star-rating {
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+    display: flex;
+    gap: 0.2rem;
+}
+
+.star {
+    font-size: 1.8rem;
+    color: #ddd;
+    cursor: pointer;
+    transition: color 0.2s ease;
+    user-select: none;
+}
+
+.star:hover {
+    color: #fe424d;
+}
+
+.star.filled {
+    color: #fe424d;
+}
+
+.star.hover {
+    color: #fe424d;
+}
+
+/* Review Cards Styling */
+.review-card {
+    border: none !important;
+    border-radius: 1rem !important;
+    overflow: hidden !important;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08) !important;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    background-color: white;
+    margin-bottom: 1rem;
+}
+
+.review-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.12) !important;
+}
+
+.review-card .card-body {
+    padding: 1.25rem !important;
+}
+
+.review-card .card-title {
+    color: #222222;
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.review-comment {
+    color: #484848;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin-bottom: 0.75rem;
+}
+
+.rating-display {
+    display: flex;
+    gap: 0.1rem;
+}
+
+.star-display {
+    font-size: 1rem;
+    color: #ddd;
+}
+
+.star-display.filled {
+    color: #fe424d;
+}
+
+.review-card .text-muted {
+    font-size: 0.85rem;
+    color: #888888 !important;
+}
+
+.review-card .fa-calendar {
+    margin-right: 0.3rem;
+}
+
+/* Delete Review Button Styling */
+.delete-review-form {
+    margin: 0;
+    padding: 0;
+}
+
+.delete-review-btn {
+    border: 1px solid #dc3545 !important;
+    color: #dc3545 !important;
+    background-color: transparent !important;
+    padding: 0.25rem 0.5rem !important;
+    font-size: 0.75rem !important;
+    border-radius: 0.375rem !important;
+    transition: all 0.2s ease !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 32px;
+    height: 28px;
+}
+
+.delete-review-btn:hover {
+    background-color: #dc3545 !important;
+    color: white !important;
+    border-color: #dc3545 !important;
+    transform: scale(1.05);
+}
+
+.delete-review-btn:focus {
+    box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25) !important;
+}
+
+.delete-review-btn i {
+    font-size: 0.7rem;
+}
+
+/* Flash Messages - Airbnb Style */
+.flash-message {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1050;
+    min-width: 300px;
+    max-width: 400px;
+    border: none !important;
+    border-radius: 12px !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15) !important;
+    font-weight: 500;
+    animation: slideInRight 0.4s ease-out;
+}
+
+.flash-message.alert-success {
+    background: linear-gradient(135deg, #00d4aa 0%, #00b894 100%) !important;
+    color: white !important;
+    border-left: 4px solid #00a085 !important;
+}
+
+.flash-message.alert-danger {
+    background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%) !important;
+    color: white !important;
+    border-left: 4px solid #e74c3c !important;
+}
+
+.flash-message i {
+    font-size: 1.1rem;
+    opacity: 0.9;
+}
+
+.flash-message .btn-close {
+    filter: brightness(0) invert(1);
+    opacity: 0.8;
+    font-size: 0.9rem;
+}
+
+.flash-message .btn-close:hover {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Auto-hide flash messages after 5 seconds */
+.flash-message {
+    animation: slideInRight 0.4s ease-out, fadeOut 0.5s ease-in 4.5s forwards;
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+}
