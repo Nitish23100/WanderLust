@@ -1,0 +1,6 @@
+.env
+.vscode
+node_modules
+DEPLOYMENT_NOTES.md
+SECURITY_CHECKLIST.md
+SESSION_SECURITY.md

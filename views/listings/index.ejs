@@ -1,0 +1,95 @@
+<% layout("layout/boilerplate") -%>
+
+<!-- Categories Section -->
+<div class="categories-container">
+    <div class="categories-wrapper">
+        <div class="categories-scroll">
+            <a href="/listings?category=trending" class="category-item <%= (typeof selectedCategory !== 'undefined' && selectedCategory === 'trending') || typeof selectedCategory === 'undefined' ? 'active' : '' %>" data-category="trending">
+                <i class="fas fa-fire"></i>
+                <span>Trending</span>
+            </a>
+            <a href="/listings?category=rooms" class="category-item <%= typeof selectedCategory !== 'undefined' && selectedCategory === 'rooms' ? 'active' : '' %>" data-category="rooms">
+                <i class="fas fa-bed"></i>
+                <span>Rooms</span>
+            </a>
+            <a href="/listings?category=iconic-cities" class="category-item <%= typeof selectedCategory !== 'undefined' && selectedCategory === 'iconic-cities' ? 'active' : '' %>" data-category="iconic-cities">
+                <i class="fas fa-city"></i>
+                <span>Iconic cities</span>
+            </a>
+            <a href="/listings?category=mountain" class="category-item <%= typeof selectedCategory !== 'undefined' && selectedCategory === 'mountain' ? 'active' : '' %>" data-category="mountain">
+                <i class="fas fa-mountain"></i>
+                <span>Mountain</span>
+            </a>
+            <a href="/listings?category=amazing-pools" class="category-item <%= typeof selectedCategory !== 'undefined' && selectedCategory === 'amazing-pools' ? 'active' : '' %>" data-category="amazing-pools">
+                <i class="fas fa-swimming-pool"></i>
+                <span>Amazing pools</span>
+            </a>
+            <a href="/listings?category=camping" class="category-item <%= typeof selectedCategory !== 'undefined' && selectedCategory === 'camping' ? 'active' : '' %>" data-category="camping">
+                <i class="fas fa-campground"></i>
+                <span>Camping</span>
+            </a>
+            <a href="/listings?category=farms" class="category-item <%= typeof selectedCategory !== 'undefined' && selectedCategory === 'farms' ? 'active' : '' %>" data-category="farms">
+                <i class="fas fa-tractor"></i>
+                <span>Farms</span>
+            </a>
+            <a href="/listings?category=arctic" class="category-item <%= typeof selectedCategory !== 'undefined' && selectedCategory === 'arctic' ? 'active' : '' %>" data-category="arctic">
+                <i class="fas fa-snowflake"></i>
+                <span>Arctic</span>
+            </a>
+        </div>
+        <div class="tax-switch-container">
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" id="taxSwitch">
+                <label class="form-check-label" for="taxSwitch">
+                    Display total after taxes
+                </label>
+            </div>
+            <small class="text-muted">Includes taxes & fees</small>
+        </div>
+    </div>
+</div>
+
+<div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1">
+    <% for (let listing of listings) { %>
+        <a href="/listings/<%= listing._id %>" class="listing-link">
+            <div class="card col listing-card">
+                <img src="<%= listing.image.url %>" class="card-img-top" alt="Listing image" style="height: 20rem;">
+                <div class="card-img-overlay"></div>
+                <div class="card-body">
+                    <p class="card-text">
+                        <b><%= listing.title %></b> <br>
+                        <% if (typeof listing.price === 'number') { %>
+                            <span class="price-display">
+                                <span class="base-price">&#8377; <%= listing.price.toLocaleString("en-IN") %></span>
+                                <span class="tax-price" style="display: none;">&#8377; <%= Math.round(listing.price * 1.18).toLocaleString("en-IN") %></span>
+                                / night
+                            </span>
+                        <% } else { %>
+                            Price not available
+                        <% } %>
+                    </p>
+                </div>
+            </div>
+        </a>
+    <% } %>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const taxSwitch = document.getElementById('taxSwitch');
+    const basePrices = document.querySelectorAll('.base-price');
+    const taxPrices = document.querySelectorAll('.tax-price');
+    
+    taxSwitch.addEventListener('change', function() {
+        if (this.checked) {
+            // Show tax-inclusive prices
+            basePrices.forEach(price => price.style.display = 'none');
+            taxPrices.forEach(price => price.style.display = 'inline');
+        } else {
+            // Show base prices
+            basePrices.forEach(price => price.style.display = 'inline');
+            taxPrices.forEach(price => price.style.display = 'none');
+        }
+    });
+});
+</script>

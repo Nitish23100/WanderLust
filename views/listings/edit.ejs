@@ -1,0 +1,146 @@
+<% layout("/layout/boilerplate") -%>
+<div class="row">
+    <div class="col-8 offset-2">
+        <h3>Edit your Listing</h3>
+        <form method="POST" action="/listings/<%= listing._id %>?_method=PUT" novalidate class="needs-validation">
+
+            <div class="mb-3">
+                <label for="title" class="form-label">Title</label>
+                <input name="listing[title]" value="<%= listing.title %>" type="text" class="form-control" required>
+                <div class="invalid-feedback">
+                    Please enter a title.
+                </div>
+                <div class="valid-feedback">
+                    Title is valid.
+                </div>
+
+            </div>
+            <div class="mb-3">
+                <label for="description" class="form-label">Description</label>
+                <textarea name="listing[description]" class="form-control"><%= listing.description %></textarea required>
+                <div class="invalid-feedback">
+                    Please enter a description.
+                </div>
+                <div class="valid-feedback">
+                    Description is valid.
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="image" class="form-label">Image Link</label>
+                <input name="listing[image][url]" value="<%= listing.image.url %>" type="text" class="form-control" required>
+                <div class="invalid-feedback">
+                    Please enter an image link.
+                </div>
+                <div class="valid-feedback">
+                    Image link is valid.
+                </div>
+                <div class="invalid-feedback">
+                    Please enter a valid image link.
+                </div>
+            </div>
+            <div class="row">
+                <div class="mb-3 col-md-4">
+                    <label for="price" class="form-label">Price</label>
+                    <input name="listing[price]" value="<%= listing.price %>" type="number" class="form-control" required>
+                    <div class="invalid-feedback">
+                        Please enter a price.
+                    </div>
+                    <div class="valid-feedback">
+                        Price is valid.
+                    </div>
+
+                </div>
+                <div class="mb-3 col-md-8">
+                    <label for="country" class="form-label">Country</label>
+                    <input name="listing[country]" value="<%= listing.country %>" type="text" class="form-control" required>
+                    <div class="invalid-feedback">
+                        Please enter a country.
+                    </div>
+                    <div class="valid-feedback">
+                        Country is valid.
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="location" class="form-label">Location</label>
+                <input name="listing[location]" value="<%= listing.location %>" type="text" class="form-control" required>
+                <div class="invalid-feedback">
+                    Please enter a location.
+                </div>
+                <div class="valid-feedback">
+                    Location is valid.
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="category" class="form-label">Category</label>
+                <div class="category-selection">
+                    <div class="row">
+                        <div class="col-md-3 col-6 mb-3">
+                            <input type="radio" class="btn-check" name="listing[category]" id="edit-trending" value="trending" <%= listing.category === 'trending' ? 'checked' : '' %>>
+                            <label class="btn btn-outline-secondary category-btn" for="edit-trending">
+                                <i class="fas fa-fire"></i>
+                                <span>Trending</span>
+                            </label>
+                        </div>
+                        <div class="col-md-3 col-6 mb-3">
+                            <input type="radio" class="btn-check" name="listing[category]" id="edit-rooms" value="rooms" <%= listing.category === 'rooms' ? 'checked' : '' %>>
+                            <label class="btn btn-outline-secondary category-btn" for="edit-rooms">
+                                <i class="fas fa-bed"></i>
+                                <span>Rooms</span>
+                            </label>
+                        </div>
+                        <div class="col-md-3 col-6 mb-3">
+                            <input type="radio" class="btn-check" name="listing[category]" id="edit-iconic-cities" value="iconic-cities" <%= listing.category === 'iconic-cities' ? 'checked' : '' %>>
+                            <label class="btn btn-outline-secondary category-btn" for="edit-iconic-cities">
+                                <i class="fas fa-city"></i>
+                                <span>Iconic cities</span>
+                            </label>
+                        </div>
+                        <div class="col-md-3 col-6 mb-3">
+                            <input type="radio" class="btn-check" name="listing[category]" id="edit-mountain" value="mountain" <%= listing.category === 'mountain' ? 'checked' : '' %>>
+                            <label class="btn btn-outline-secondary category-btn" for="edit-mountain">
+                                <i class="fas fa-mountain"></i>
+                                <span>Mountain</span>
+                            </label>
+                        </div>
+                        <div class="col-md-3 col-6 mb-3">
+                            <input type="radio" class="btn-check" name="listing[category]" id="edit-amazing-pools" value="amazing-pools" <%= listing.category === 'amazing-pools' ? 'checked' : '' %>>
+                            <label class="btn btn-outline-secondary category-btn" for="edit-amazing-pools">
+                                <i class="fas fa-swimming-pool"></i>
+                                <span>Amazing pools</span>
+                            </label>
+                        </div>
+                        <div class="col-md-3 col-6 mb-3">
+                            <input type="radio" class="btn-check" name="listing[category]" id="edit-camping" value="camping" <%= listing.category === 'camping' ? 'checked' : '' %>>
+                            <label class="btn btn-outline-secondary category-btn" for="edit-camping">
+                                <i class="fas fa-campground"></i>
+                                <span>Camping</span>
+                            </label>
+                        </div>
+                        <div class="col-md-3 col-6 mb-3">
+                            <input type="radio" class="btn-check" name="listing[category]" id="edit-farms" value="farms" <%= listing.category === 'farms' ? 'checked' : '' %>>
+                            <label class="btn btn-outline-secondary category-btn" for="edit-farms">
+                                <i class="fas fa-tractor"></i>
+                                <span>Farms</span>
+                            </label>
+                        </div>
+                        <div class="col-md-3 col-6 mb-3">
+                            <input type="radio" class="btn-check" name="listing[category]" id="edit-arctic" value="arctic" <%= listing.category === 'arctic' ? 'checked' : '' %>>
+                            <label class="btn btn-outline-secondary category-btn" for="edit-arctic">
+                                <i class="fas fa-snowflake"></i>
+                                <span>Arctic</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button class="btn btn-danger add-btn">Update</button>
+        </form>
+    </div>
+</div>
+<script src="/js/script.js"></script>
+</html>

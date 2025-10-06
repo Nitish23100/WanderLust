@@ -1,0 +1,148 @@
+<% layout("layout/boilerplate") -%>
+<div class="row">
+    <div class="col-8 offset-2">
+        <h3>Create a New Listing</h3>
+        <form method="POST" action="/listings" class="needs-validation" novalidate enctype="multipart/form-data">
+            <div class="mb-3">
+                <label for="title" class="form-label">Title</label>
+                <input name="listing[title]" placeholder="enter title" type="text" class="form-control" required>
+                <div class="valid-feedback">
+                    Title is valid.
+                </div>
+                <div class="invalid-feedback">
+                    Please enter a title.
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="description" class="form-label">Description</label>
+                <textarea name="listing[description]" placeholder="enter description" class="form-control" required></textarea>
+                <div class="valid-feedback">
+                    Description is valid.
+                </div>
+                <div class="invalid-feedback">
+                    Please enter a description.
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="image" class="form-label">Upload Image</label>
+                <input name="listing[image]" type="file" class="form-control" accept="image/*" required>
+                <div class="valid-feedback">
+                    Image is valid.
+                </div>
+                <div class="invalid-feedback">
+                    Please upload an image.
+                </div>
+                <small class="form-text text-muted">Upload a high-quality image of your listing (JPG, PNG, JPEG)</small>
+            </div>
+
+            <div class="row">
+                <div class="mb-3 col-md-4">
+                    <label for="price" class="form-label">Price</label>
+                    <input name="listing[price]" placeholder="enter price" type="number" class="form-control" min="1" required>
+                    <div class="valid-feedback">
+                        Price is valid.
+                    </div>
+
+                    <div class="invalid-feedback">
+                        Please enter a valid price.
+                    </div>
+                </div>
+                <div class="mb-3 col-md-8">
+                    <label for="country" class="form-label">Country</label>
+                    <input name="listing[country]" placeholder="enter country" type="text" class="form-control" required>
+                    <div class="valid-feedback">
+                        Country is valid.
+                    </div>
+
+                    <div class="invalid-feedback">
+                        Please enter a country.
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="location" class="form-label">Location</label>
+                <input name="listing[location]" placeholder="enter location" type="text" class="form-control" required>
+                <div class="valid-feedback">
+                    Location is valid.
+                </div>
+                <div class="invalid-feedback">
+                    Please enter a location.
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="category" class="form-label">Category</label>
+                <div class="category-selection">
+                    <div class="row">
+                        <div class="col-md-3 col-6 mb-3">
+                            <input type="radio" class="btn-check" name="listing[category]" id="trending" value="trending" checked>
+                            <label class="btn btn-outline-secondary category-btn" for="trending">
+                                <i class="fas fa-fire"></i>
+                                <span>Trending</span>
+                            </label>
+                        </div>
+                        <div class="col-md-3 col-6 mb-3">
+                            <input type="radio" class="btn-check" name="listing[category]" id="rooms" value="rooms">
+                            <label class="btn btn-outline-secondary category-btn" for="rooms">
+                                <i class="fas fa-bed"></i>
+                                <span>Rooms</span>
+                            </label>
+                        </div>
+                        <div class="col-md-3 col-6 mb-3">
+                            <input type="radio" class="btn-check" name="listing[category]" id="iconic-cities" value="iconic-cities">
+                            <label class="btn btn-outline-secondary category-btn" for="iconic-cities">
+                                <i class="fas fa-city"></i>
+                                <span>Iconic cities</span>
+                            </label>
+                        </div>
+                        <div class="col-md-3 col-6 mb-3">
+                            <input type="radio" class="btn-check" name="listing[category]" id="mountain" value="mountain">
+                            <label class="btn btn-outline-secondary category-btn" for="mountain">
+                                <i class="fas fa-mountain"></i>
+                                <span>Mountain</span>
+                            </label>
+                        </div>
+                        <div class="col-md-3 col-6 mb-3">
+                            <input type="radio" class="btn-check" name="listing[category]" id="amazing-pools" value="amazing-pools">
+                            <label class="btn btn-outline-secondary category-btn" for="amazing-pools">
+                                <i class="fas fa-swimming-pool"></i>
+                                <span>Amazing pools</span>
+                            </label>
+                        </div>
+                        <div class="col-md-3 col-6 mb-3">
+                            <input type="radio" class="btn-check" name="listing[category]" id="camping" value="camping">
+                            <label class="btn btn-outline-secondary category-btn" for="camping">
+                                <i class="fas fa-campground"></i>
+                                <span>Camping</span>
+                            </label>
+                        </div>
+                        <div class="col-md-3 col-6 mb-3">
+                            <input type="radio" class="btn-check" name="listing[category]" id="farms" value="farms">
+                            <label class="btn btn-outline-secondary category-btn" for="farms">
+                                <i class="fas fa-tractor"></i>
+                                <span>Farms</span>
+                            </label>
+                        </div>
+                        <div class="col-md-3 col-6 mb-3">
+                            <input type="radio" class="btn-check" name="listing[category]" id="arctic" value="arctic">
+                            <label class="btn btn-outline-secondary category-btn" for="arctic">
+                                <i class="fas fa-snowflake"></i>
+                                <span>Arctic</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="invalid-feedback">
+                    Please select a category.
+                </div>
+            </div>
+
+            <button class="btn btn-danger add-btn" type="submit">Add</button>
+        </form>
+    </div>
+</div>
+
+<script>

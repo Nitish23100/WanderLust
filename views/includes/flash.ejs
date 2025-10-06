@@ -1,0 +1,25 @@
+<div id="flash-container">
+    <% if(success && success.length > 0) { %>
+        <div class="flash-message flash-success">
+            <div class="flash-content">
+                <i class="fas fa-check-circle"></i>
+                <span><%= success %></span>
+            </div>
+            <button type="button" class="flash-close" onclick="this.parentElement.remove()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    <% } %>
+
+    <% if(error && error.length > 0) { %>
+        <div class="flash-message flash-error">
+            <div class="flash-content">
+                <i class="fas fa-exclamation-circle"></i>
+                <span><%= error %></span>
+            </div>
+            <button type="button" class="flash-close" onclick="this.parentElement.remove()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    <% } %>
+</div>
