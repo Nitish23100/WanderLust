@@ -29,23 +29,37 @@ const LocalStrategy = require("passport-local");
 const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
 const mongoSanitize = require("express-mongo-sanitize");
+const cors = require("cors");
 
 app.engine("ejs", ejsmate);
 const wrapAsync = require("./utils/wrapAsync.js");
 const ExpressError = require("./utils/ExpressErrors.js");
 
-// Security middleware
-app.use(helmet({
-    contentSecurityPolicy: {
-        directives: {
-            defaultSrc: ["'self'"],
-            styleSrc: ["'self'", "'unsafe-inline'", "https://cdnjs.cloudflare.com", "https://cdn.jsdelivr.net"],
-            scriptSrc: ["'self'", "https://cdnjs.cloudflare.com", "https://cdn.jsdelivr.net"],
-            imgSrc: ["'self'", "data:", "https:", "http:"],
-            fontSrc: ["'self'", "https://cdnjs.cloudflare.com", "https://cdn.jsdelivr.net"],
+// Security middleware with deployment-friendly CSP
+if (process.env.NODE_ENV === "production") {
+    app.use(helmet({
+        contentSecurityPolicy: {
+            directives: {
+                defaultSrc: ["'self'"],
+                connectSrc: ["'self'", "https://cdn.jsdelivr.net", "https://cdnjs.cloudflare.com", "https://api.cloudinary.com", "https://res.cloudinary.com"],
+                styleSrc: ["'self'", "'unsafe-inline'", "https://cdnjs.cloudflare.com", "https://cdn.jsdelivr.net", "https://fonts.googleapis.com"],
+                scriptSrc: ["'self'", "'unsafe-inline'", "https://cdnjs.cloudflare.com", "https://cdn.jsdelivr.net"],
+                imgSrc: ["'self'", "data:", "https:", "http:", "https://res.cloudinary.com", "https://images.unsplash.com"],
+                fontSrc: ["'self'", "https://cdnjs.cloudflare.com", "https://cdn.jsdelivr.net", "https://fonts.gstatic.com"],
+                objectSrc: ["'none'"],
+                mediaSrc: ["'self'", "https://res.cloudinary.com"],
+                frameSrc: ["'none'"],
+            },
         },
-    },
-}));
+        crossOriginEmbedderPolicy: false,
+    }));
+} else {
+    // Development mode - more relaxed CSP
+    app.use(helmet({
+        contentSecurityPolicy: false,
+        crossOriginEmbedderPolicy: false,
+    }));
+}
 
 // Rate limiting
 const limiter = rateLimit({
@@ -67,6 +81,19 @@ const authLimiter = rateLimit({
 
 // MongoDB injection protection
 app.use(mongoSanitize());
+
+// CORS configuration for deployment
+app.use(cors({
+    origin: process.env.NODE_ENV === "production" 
+        ? ["https://your-app-name.onrender.com"] // Replace with your actual Render URL
+        : ["http://localhost:3000"],
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
+}));
+
+// Trust proxy for deployment platforms like Render, Heroku, etc.
+app.set('trust proxy', 1);
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
