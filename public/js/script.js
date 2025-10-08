@@ -101,5 +101,24 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // Tax Switch Functionality (Global)
+    const taxSwitch = document.getElementById('taxSwitch');
+    if (taxSwitch) {
+        const basePrices = document.querySelectorAll('.base-price');
+        const taxPrices = document.querySelectorAll('.tax-price');
+        
+        taxSwitch.addEventListener('change', function() {
+            if (this.checked) {
+                // Show tax-inclusive prices
+                basePrices.forEach(price => price.style.display = 'none');
+                taxPrices.forEach(price => price.style.display = 'inline');
+            } else {
+                // Show base prices
+                basePrices.forEach(price => price.style.display = 'inline');
+                taxPrices.forEach(price => price.style.display = 'none');
+            }
+        });
+    }
+
     // Category links are now handled by server-side routing
 });
