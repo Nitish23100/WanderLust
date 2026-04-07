@@ -92,9 +92,9 @@ router.get("/logout" , isLoggedIn , (req , res , next) => {
         if (err) {
             return next(err);
         }
+        req.flash("success" , "Goodbye!");
+        res.redirect("/listings");
     });
-    req.flash("success" , "Goodbye!");
-    res.redirect("/listings");
 })      
 
 module.exports = router;

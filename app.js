@@ -2,13 +2,14 @@ if (process.env.NODE_ENV !== "production") {
     require('dotenv').config();
 }
 
-// Validate required environment variables
+// Validate required environment variables (throw instead of process.exit for serverless)
 const requiredEnvVars = ['ATLASDB_URL', 'CLOUDINARY_CLOUD_NAME', 'CLOUDINARY_KEY', 'CLOUDINARY_SECRET'];
 const missingEnvVars = requiredEnvVars.filter(envVar => !process.env[envVar]);
 
 if (missingEnvVars.length > 0) {
-    console.error(`Missing required environment variables: ${missingEnvVars.join(', ')}`);
-    process.exit(1);
+    const msg = `Missing required environment variables: ${missingEnvVars.join(', ')}`;
+    console.error(msg);
+    throw new Error(msg);
 }
 
 const express = require("express");
@@ -210,16 +211,34 @@ app.use((req, res, next) => {
     next();
 });
 
+// Cached MongoDB connection for serverless (reused across warm invocations)
+let cachedConnection = null;
+
 async function connectDB() {
+    if (cachedConnection && mongoose.connection.readyState === 1) {
+        return cachedConnection;
+    }
     try {
-        await mongoose.connect(MONGO_URL);
+        cachedConnection = await mongoose.connect(MONGO_URL);
         console.log("Connected to MongoDB Atlas");
+        return cachedConnection;
     } catch (error) {
         console.error("Error connecting to MongoDB:", error);
-        process.exit(1);
+        cachedConnection = null;
+        throw error;
     }
 }
-connectDB();
+
+// Middleware to ensure DB connection before handling any request
+app.use(async (req, res, next) => {
+    try {
+        await connectDB();
+        next();
+    } catch (err) {
+        console.error("Failed to connect to database:", err);
+        next(err);
+    }
+});
 
 // Import route files
 const userRouter = require("./routes/user");
@@ -273,7 +292,13 @@ app.get("*", (req, res) => {
     });
 });
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-    console.log(`Server is listening on port ${PORT}`);
-});
+// Only start the server when running locally (not on Vercel)
+if (!process.env.VERCEL) {
+    const PORT = process.env.PORT || 3000;
+    app.listen(PORT, () => {
+        console.log(`Server is listening on port ${PORT}`);
+    });
+}
+
+// Export the app for Vercel serverless
+module.exports = app;
